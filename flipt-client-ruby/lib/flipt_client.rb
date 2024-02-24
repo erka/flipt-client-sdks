@@ -57,10 +57,11 @@ module Flipt
       opts[:authentication] = authentication.strategy
 
       namespace_list = [namespace]
-      ns = FFI::MemoryPointer.new(:pointer, namespace_list.size)
-      namespace_list.each_with_index do |namespace, i|
-        ns[i].put_pointer(0, FFI::MemoryPointer.from_string(namespace))
+      ns = FFI::MemoryPointer.new(:pointer, namespace_list.size + 1)
+      pointers = namespace_list.map do |namespace|
+         FFI::MemoryPointer.from_string(namespace.to_s)
       end
+      ns.write_array_of_pointer(pointers)
 
       @engine = self.class.initialize_engine(ns, opts.to_json)
       ObjectSpace.define_finalizer(self, self.class.finalize(@engine))
@@ -95,7 +96,7 @@ module Flipt
       resp = self.class.evaluate_boolean(@engine, evaluation_request.to_json)
       JSON.parse(resp)
     end
-  
+
     # Evaluate a batch of flags for a given request
     #
     # @param batch_evaluation_request [Array<Hash>] batch evaluation request
