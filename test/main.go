@@ -184,7 +184,7 @@ func goTests(ctx context.Context, client *dagger.Client, flipt *dagger.Container
 
 // nodeTests runs the node integration test suite against a container running Flipt.
 func nodeTests(ctx context.Context, client *dagger.Client, flipt *dagger.Container, args testArgs) error {
-	_, err := client.Pipeline("node").Container().From("node:20.11.1-bookworm-slim").
+	_, err := client.Pipeline("node").Container().From("node:20.11.1-bookworm").
 		WithWorkdir("/src").
 		// The node_modules should never be version controlled, but we will exclude it here
 		// just to be safe.
