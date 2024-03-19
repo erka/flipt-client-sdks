@@ -24,6 +24,21 @@ flags:
   - threshold:
       percentage: 50
       value: true
+- key: prd0002-disabled
+  name: disabled
+  type: BOOLEAN_FLAG_TYPE
+  enabled: false
+  rollouts:
+  - segment:
+      key: prd0000-4a845c25fa825feac1813bf514e0ca76
+- key: prd0002-enabled
+  name: enabled
+  type: BOOLEAN_FLAG_TYPE
+  enabled: false
+  rollouts:
+  - segment:
+      key: prd0000-4a845c25fa825feac1813bf514e0ca76
+      value: true
 segments:
 - key: segment1
   name: segment1
@@ -33,4 +48,11 @@ segments:
     property: fizz
     operator: eq
     value: buzz
+  match_type: ANY_MATCH_TYPE
+- key: prd0000-4a845c25fa825feac1813bf514e0ca76
+  name: or-always
+  constraints:
+  - type: BOOLEAN_COMPARISON_TYPE
+    property: (╯°□°)╯︵ ┻━┻
+    operator: notpresent
   match_type: ANY_MATCH_TYPE
