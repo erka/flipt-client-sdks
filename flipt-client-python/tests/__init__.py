@@ -51,7 +51,7 @@ class TestFliptEvaluationClient(unittest.TestCase):
         flags = self.flipt_client.list_flags()
         self.assertIsNone(flags.error_message)
         self.assertEqual("success", flags.status)
-        self.assertEqual(2, len(flags.result))
+        self.assertEqual(4, len(flags.result))
 
     def test_batch(self):
         batch = self.flipt_client.evaluate_batch(

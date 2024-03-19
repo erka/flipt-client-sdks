@@ -157,7 +157,7 @@ describe('evaluation', () => {
     expect(flags.error_message).toBeNull();
     expect(flags.status).toEqual('success');
     expect(flags.result).toBeDefined();
-    expect(flags.result?.length).toEqual(3);
+    expect(flags.result?.length).toEqual(4);
   });
 
   describe('boolean-flag', () => {
