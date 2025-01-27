@@ -107,10 +107,18 @@ pub struct Engine {
 }
 
 impl Engine {
-    pub fn new(namespace: &str, mut fetcher: HTTPFetcher, evaluator: Evaluator<Snapshot>) -> Self {
-        let stop_signal = Arc::new(AtomicBool::new(false));
-
+    pub fn new(namespace: &str, fetcher: HTTPFetcher, evaluator: Evaluator<Snapshot>) -> Self {
         let runtime = Runtime::new().expect("failed to create runtime");
+        Self::new_with_runtime(namespace, fetcher, evaluator, runtime)
+    }
+
+    pub fn new_with_runtime(
+        namespace: &str,
+        mut fetcher: HTTPFetcher,
+        evaluator: Evaluator<Snapshot>,
+        runtime: Runtime,
+    ) -> Self {
+        let stop_signal = Arc::new(AtomicBool::new(false));
 
         let evaluator = Arc::new(Mutex::new(evaluator));
         let evaluator_clone = evaluator.clone();
